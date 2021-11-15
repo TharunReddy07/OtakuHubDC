@@ -1,0 +1,70 @@
+{% extends "base.html"%}
+{% block content%}
+
+<body style="margin:0;padding:0; background:#f8f9fa !important;">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3" style="padding: 2%">
+            <br>
+            <h4><b>Otaku Hub</b></h4>
+            <p>172.16.120.34</p>
+            <p>Moderators - DriftKing009,tharun</p>
+
+            <br>
+            <h4><b>The_LoudSpeaker's Hub</b></h4>
+            <p>172.16.34.21</p>
+            <p>Moderator - Raman Sarda</p>
+
+            <br><br>
+            <h3><b>Instructions</b></h3>
+            <p>Download DC++. <br> Press File -> Quick Connect -> 172.16.120.34 to join OtakuHub.<br>
+            Go to File->Settings-> Connectivity->Remove the tick if present->Press OK.<br>
+            Use File->Sharing to share the files on your computer.<br></p>
+
+            <br>
+
+        </div>
+        <div class="col-1"></div>
+        <div class="col-8">
+
+            <style type="text/css">
+                .homeDiv
+                {
+                background:#fff;
+                    border: 1px solid rgba(0, 0, 0, .1);
+                    border-radius: 8px;
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, .1);
+                 font-size:20px;
+                }
+            </style>
+
+                {% for i in showPost %}
+                &nbsp
+                Posted by {{ i.img }} - {{ i.date_posted }}
+                <div class="homeDiv" style="padding:2%">
+                    <div class="row">
+                        <div class="col-7">
+                            <b>{{ i.title }}</b>
+                            <br> <br>
+                            <span style="color:#495057"> {{i.description }}</span>
+
+                            {% if request.user.is_admin %}
+                                <br><br>
+                                <button class="btn btn-danger"> <a href="{% url 'delPost' id=i.id %}" style="color:white;text-decoration:none"> Delete </a>
+                                </button>
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                {% endfor %}
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock%}

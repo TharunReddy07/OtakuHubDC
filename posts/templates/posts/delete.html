@@ -1,0 +1,39 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+
+            {% if post.createdby_id == user.id  %}
+
+                <p>Are you sure you want to remove "{{ post.title }}"?</p>
+
+                <form action="{% url 'delPost' post.id  %}" method="POST">
+                    {% csrf_token %}
+                    <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-danger" type="submit" name="Confirm">
+                </form>
+
+            {% elif user.is_admin %}
+
+                <p>Are you sure you want to remove "{{ post.title }}"?</p>
+
+                <form action="{% url 'delPost' post.id  %}" method="POST">
+                    {% csrf_token %}
+                    <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-danger" type="submit" name="Confirm">
+                </form>
+
+            {% else %}
+                <p>You are not allowed to delete this post</p>
+
+            {% endif %}
+
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

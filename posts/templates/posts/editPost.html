@@ -1,0 +1,60 @@
+{% extends "base.html"%}
+
+{% block content%}
+
+<div class="row" style="padding: 1%">
+    &nbsp &nbsp &nbsp
+    <h3>Edit Post</h3>
+</div>
+
+<div class="row">
+
+    <div class="col-12">
+
+        {% if post.createdby_id == userId  %}
+            <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="col gutters">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="fullName">Title</label>
+                        <input type="text" class="form-control" id="fullName" {{ form.title }}
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="fullName">Description</label>
+                        <input type="text" class="form-control" id="fullName" {{ form.description }}
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="row gutters" style="padding: 1%">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="text-left">
+
+                        &nbsp &nbsp
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                        <a class="btn btn-secondary" href="{% url 'home' %}">Cancel</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        {% else %}
+            <div class="text" style="padding: 2%">
+                <p>You are not allowed to edit others post.</p>
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+{% endblock%}

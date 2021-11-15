@@ -1,0 +1,109 @@
+{% load static %}
+
+<!-- Header -->
+<div class="d-flex flex-column flex-lg-row p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+
+	<!-- MEDIUM+ SCREENS -->
+	<div class="d-none d-md-flex flex-row my-auto flex-grow-1 align-items-center">
+		<h5 class="mr-3 font-weight-normal justify-content-start">
+			<a class="p-2 text-dark" href="{% url 'login' %}"><b>DC++</b></a>
+		</h5>
+
+        <nav class="">
+            {% if request.user.is_authenticated %}
+                <div class="d-flex flex-row">
+                    <form class="search-bar justify-content-start" onsubmit="return executeQuery();">
+                        <input type="text" class="form-control" name="q" id="id_q_large" placeholder="Search...">
+                    </form>
+
+                    &nbsp &nbsp &nbsp
+                    <a class="btn btn-outline-primary" href="{% url 'addPost' %}">Add post</a>
+                </div>
+
+            {% else %}
+            {% endif %}
+        </nav>
+
+		<div class="d-flex flex-row-reverse flex-grow-1">
+			<nav class="">
+				{% if request.user.is_authenticated %}
+					<div class="dropdown dropleft show p-2">
+						<div class="d-flex flex-row">
+
+                            <span class="hello-msg" >Hello, {{request.user}}</span>
+                            &nbsp &nbsp &nbsp
+
+                            <a href="{% url 'myPost' %}"><button class="border-primary">My Posts</button></a>
+                            &nbsp &nbsp &nbsp
+
+                            <a href="{% url 'logout' %}"><button class="border-danger">Logout</button></a>
+
+						</div>
+
+					</div>
+				{% else %}
+					<a class="btn btn-outline-primary" href="{% url 'login' %}">Login</a>
+					<a class="btn btn-outline-primary" href="{% url 'register' %}">Register</a>
+				{% endif %}
+			</nav>
+		</div>
+	</div>
+	<!-- END MEDIUM+ SCREENS -->
+
+	<!-- SMALL SCREENS -->
+	<div class="d-flex d-md-none flex-column my-auto align-items-center">
+		<h5 class="font-weight-normal">
+            <a class="p-2 text-dark" href="{% url 'login' %}"><b>DC++</b></a>
+		</h5>
+
+        {% if request.user.is_authenticated %}
+            &nbsp
+            <span class="hello-msg" >Hello, {{request.user}}</span>
+            &nbsp
+            <form class="search-bar justify-content-start" onsubmit="return executeQuery();">
+                <input type="text" class="form-control" name="q" id="id_q_large" placeholder="Search...">
+            </form>
+            &nbsp
+            <a class="btn btn-outline-primary" href="{% url 'addPost' %}">Add post</a>
+        {% endif %}
+
+		<div class="d-flex flex-row-reverse flex-grow-1">
+			<nav class="">
+				{% if request.user.is_authenticated %}
+				<div class="dropdown dropleft p-2 mt-2">
+					<div class="d-flex flex-row">
+						<div class="btn-group dropleft">
+							<div class="d-flex flex-row">
+
+                                <a href="{% url 'myPost' %}"><button class="border-primary">My Posts</button></a>
+                                &nbsp &nbsp &nbsp
+
+                                <a href="{% url 'logout' %}"><button class="border-danger">Logout</button></a>
+
+						    </div>
+						</div>
+					</div>
+				</div>
+				{% else %}
+					<a class="p-2 text-dark" href="{% url 'login' %}">Login</a>
+					<a class="btn btn-outline-primary m-2" href="{% url 'register' %}">Register</a>
+				{% endif %}
+			</nav>
+	  	</div>
+	</div>
+	<!-- END SMALL SCREENS -->
+</div>
+
+
+<script type="text/javascript">
+	function executeQuery() {
+		var query = ""
+		query = document.getElementById('id_q_small').value;
+		if (query == ""){
+			query = document.getElementById('id_q_large').value;
+		}
+	    window.location.replace("{% url 'search' %}?q=" + query)
+	    return false
+	}
+</script>
+
