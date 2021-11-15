@@ -11,6 +11,7 @@
     <table class="table table-striped table-hover">
         <tbody>
         <tr>
+        {% if myPost %}
             <style type="text/css">
                 .homeDiv
                 {
@@ -35,6 +36,13 @@
                 </div>
                 <br>
             {% endfor %}
+
+        {% else %} <!-- If no posts -->
+            <div class="d-flex flex-row flex-grow-1 justify-content-center align-items-center p-4">
+                <p>No results</p>
+            </div>
+		{% endif %}
+
         </tr>
         </tbody>
     </table>

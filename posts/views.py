@@ -86,10 +86,10 @@ def post_search(request, *args, **kwargs):
     if request.method == "GET":
         search_query = request.GET.get("q")
         if len(search_query) > 0:
-            search_results = Post.objects.filter(title__icontains=search_query).filter(
-                description__icontains=search_query).distinct()
-            context['showPost'] = search_results
+            search_results = list(Post.objects.filter(title__icontains=search_query))
+            search_results += list(Post.objects.filter(description__icontains=search_query))
 
-    print("----------------------------------------------------------------------------")
-    print(context)
+            posts = set(search_results)
+            context['showPost'] = posts
+
     return render(request, "posts/search_results.html", context)
